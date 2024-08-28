@@ -28,6 +28,10 @@ export default class Controllers {
 
   create = async (req, res, next) => {
     try {
+      //If the user role is 'premium' add the email to the 'owner' product property
+      const { email, role } = req.user;
+      if (role === "premium") req.body = { ...req.body, owner: email };
+      //
       const data = await this.service.create(req.body);
       return httpResponse.Created(res, data);
     } catch (error) {
@@ -38,6 +42,16 @@ export default class Controllers {
   update = async (req, res, next) => {
     try {
       const id = req.params.pid;
+      //If the user role is 'premium' and the email to the 'owner' does not correspond to 'premium', you cannot update the product
+      if (req.user.role === "premium") {
+        const product = await this.service.getById(id);
+        if (req.user.email !== product.owner)
+          return httpResponse.Forbidden(
+            res,
+            "User with 'premium' role can only update products created by himself."
+          );
+      }
+      //
       const data = await this.service.update(id, req.body);
       if (!data) return httpResponse.Not_Found(res, data);
       else return httpResponse.Updated(res, data);
@@ -49,6 +63,16 @@ export default class Controllers {
   delete = async (req, res, next) => {
     try {
       const id = req.params.pid;
+      //If the user role is 'premium' and the email to the 'owner' does not correspond to 'premium', you cannot delete the product
+      if (req.user.role === "premium") {
+        const product = await this.service.getById(id);
+        if (req.user.email !== product.owner)
+          return httpResponse.Forbidden(
+            res,
+            "User with 'premium' role can only delete products created by himself."
+          );
+      }
+      //
       const data = await this.service.delete(id);
       if (!data) return httpResponse.Not_Found(res, data);
       else return httpResponse.Deleted(res, data);

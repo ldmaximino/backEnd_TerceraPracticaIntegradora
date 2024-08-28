@@ -10,3 +10,5 @@ USERADMIN="admincoder@coder.com"
 KEYUSERADMIN="adminCod3r123"
 ENVIRONMENT=DEV
 #ENVIRONMENT=PROD
+EMAILSEND = 'Aca va el mail desde el que se envía el reseteo de la clave. Ej. leandro@gmail.com'
+PASSEMAILSEND = 'acá va la contraseña de aplicación. Ej. de gmail'

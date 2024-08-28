@@ -58,4 +58,18 @@ router.get(
   })
 );
 
+//Send Email to reset user password
+router.post("/reset-pass", passport.authenticate('current'), controller.generateNewPass);
+
+//Update user password sended
+router.put("/update-pass", passport.authenticate('current'), controller.updatePass);
+
+//Change user role - Param uid is not necessary because req.user is saved in loggin
+router.put(
+  "/premium",[
+  refreshToken,
+  passport.authenticate("current") ],
+  controller.changeUserRole
+);
+
 export default router;

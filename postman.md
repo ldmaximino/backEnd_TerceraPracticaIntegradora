@@ -237,3 +237,30 @@ body:
 LOGGER TEST
 -----------
 GET http://localhost:5002/loggertest 
+
+RESET PASSWORD BY EMAIL
+-----------------------
+POST http://localhost:5002/users/reset-pass
+
+UPDATE PASSWORD
+---------------
+PUT http://localhost:5002/users/update-pass
+body:
+        {
+            "password":"1234"
+        }
+
+CHANGE USER ROLE
+----------------
+PUT http://localhost:5002/users/premium
+
+#Tareas extras a realizar:
+        #ejecutar la request http://localhost:5002/users/reset-pass que envía el correo para habilitar el cambio de password.
+        #ejecutar la request http://localhost:5002/users/update-pass (body "password": "1234") para que se modifique la password.
+        #Al intentar agregar un nuevo producto a la colección products, solo permite hacerlo si el usuario tiene role = admin o premium
+        #El usuario con rol 'admin' puede modificar o borrar cualquier producto
+        #El usuario con rol 'premium' solo puede modificar o borrar los productos que tienen su email en el campo owner, es decir los productos que le pertenecen.
+        #Un usuario con rol 'premium' no puede agregar al carrito un producto que le pertenece.
+        #Al llamar al end-point http://localhost:5002/users/premium, si el usuario tiene rol premium se cambia a rol user y viceversa. Si el usuario tiene rol 'admin' impide que pueda realizar el cambio.
+        
+

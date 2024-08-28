@@ -52,6 +52,7 @@ export default class CartController extends Controllers {
         return httpResponse.Not_Found(res, "Product not found"); //if the product doesn't exist on db
       const cartExist = await cartService.getCartById(cid);
       if (!cartExist) return httpResponse.Not_Found(res, "Cart not found"); //if the cart doesn't exist on db
+      if(req.user.email === productExist.owner ) return httpResponse.Forbidden(res, "User with 'premium' role cannot add a product created by himself"); //User with 'premium' role cannot add a product created by himself
       const addProductCart = await cartService.saveProductToCart(cid, pid);
       return httpResponse.Ok(res, addProductCart);
     } catch (error) {

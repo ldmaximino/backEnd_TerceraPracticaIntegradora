@@ -11,3 +11,5 @@ export const TIMETOKEN = process.env.TIMETOKEN;
 export const USERADMIN = process.env.USERADMIN;
 export const KEYUSERADMIN = process.env.KEYUSERADMIN;
 export const ENV = process.env.ENVIRONMENT;
+export const EMAILSEND = process.env.EMAILSEND;
+export const PASSEMAILSEND = process.env.PASSEMAILSEND;
