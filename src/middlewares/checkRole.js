@@ -15,7 +15,7 @@ export const checkRoleCarts = (req, res, next) => {
   try {
     const { role } = req.user;
     if (role !== "user" && role !== "premium")
-      return httpResponse.Forbidden(res, "Only users with role='user' can add products to the cart");
+      return httpResponse.Forbidden(res, "Only users with role 'user' or 'premium' can add products to the cart");
     else next();
   } catch (error) {
     next(error);
